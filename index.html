@@ -541,7 +541,7 @@ atualizar();
 
 $('#copiar').addEventListener('click', async ev => {
   const t = total();
-  const texto = `Sua Loja: módulos escolhidos\n` + MODULOS.filter(m => escolhidos.has(m.id)).map(m => `• ${m.nome}: ${reais(PRECOS[m.id])}`).join('\n')
+  const texto = `Módulos escolhidos\n` + MODULOS.filter(m => escolhidos.has(m.id)).map(m => `• ${m.nome}: ${reais(PRECOS[m.id])}`).join('\n')
     + `\nTotal: ${reais(t.valor)} por mês${t.completo ? ' (pacote completo)' : ''}`;
   try { await navigator.clipboard.writeText(texto); ev.target.textContent = 'Copiado! É só colar no WhatsApp'; }
   catch { prompt('Copie o texto abaixo:', texto); }
