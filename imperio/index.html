@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Proposta Império do Churraxco</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23f57c00'/%3E%3Cpath d='M32 12c6 10-6 14 0 24 3-6 10-6 10 4a10 10 0 1 1-20 0c0-10 10-14 10-28z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+/* ── Cores do panfleto da loja ─────────────────────────── */
+:root {
+  --carvao: #121212; --carvao-2: #1d1d1d; --carvao-3: #2a2a2a;
+  --laranja: #f57c00; --laranja-escuro: #c96500; --vermelho: #d32f2f; --amarelo: #ffc107;
+  --papel: #f6f3ee; --cartao: #ffffff; --tinta: #1d1b18; --tinta-2: #5a554e; --tinta-3: #8a847b;
+  --borda: #e6e0d6; --verde: #1f8a4c; --verde-fundo: #e3f4ea; --zap: #1f8a4c; --zap-fundo: #e7ddd3;
+  --raio: 16px; --sombra: 0 1px 2px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.06);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--papel); color: var(--tinta); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { line-height: 1.2; margin: 0 0 .4em; letter-spacing: -.01em; }
+p { margin: 0 0 .8em; }
+button { font: inherit; cursor: pointer; }
+.num { font-variant-numeric: tabular-nums; }
+.miolo { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+/* ── Capa ─────────────────────────────────────────────── */
+.capa { background: radial-gradient(1200px 500px at 85% -10%, #3a2210 0%, transparent 60%), var(--carvao); color: #fff; padding: 56px 0 64px; position: relative; overflow: hidden; }
+.capa::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: linear-gradient(90deg, var(--vermelho), var(--laranja), var(--amarelo)); }
+.selo-topo { display: inline-flex; gap: 8px; align-items: center; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--amarelo); }
+.capa h1 { font-size: clamp(30px, 5.4vw, 54px); margin-top: 14px; max-width: 17ch; }
+.capa h1 em { font-style: normal; color: var(--laranja); }
+.capa .sub { font-size: clamp(16px, 2vw, 19px); color: #d8d2c8; max-width: 60ch; }
+.capa-meta { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 26px; font-size: 14px; color: #bdb6aa; }
+.capa-meta b { color: #fff; font-weight: 600; }
+.capa-numeros { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 34px; max-width: 760px; }
+.capa-numeros div { background: #ffffff0d; border: 1px solid #ffffff1a; border-radius: 14px; padding: 14px 16px; }
+.capa-numeros strong { display: block; font-size: 26px; color: #fff; }
+.capa-numeros span { font-size: 13px; color: #bdb6aa; }
+
+/* ── Seções ───────────────────────────────────────────── */
+section.bloco { padding: 56px 0 8px; }
+.rotulo { font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--laranja-escuro); margin-bottom: 6px; }
+.bloco > .miolo > h2 { font-size: clamp(24px, 3.4vw, 34px); }
+.intro { color: var(--tinta-2); max-width: 70ch; font-size: 17px; }
+
+.pronto { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 22px; }
+.pronto div { background: var(--cartao); border: 1px solid var(--borda); border-radius: var(--raio); padding: 18px; box-shadow: var(--sombra); }
+.pronto h3 { font-size: 16.5px; display: flex; gap: 10px; align-items: center; }
+.pronto p { color: var(--tinta-2); font-size: 14.5px; margin: 0; }
+.ok { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--verde-fundo); color: var(--verde); display: grid; place-items: center; font-size: 14px; font-weight: 900; }
+
+.fluxo { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 24px; counter-reset: passo; }
+.fluxo div { background: var(--carvao); color: #fff; border-radius: 14px; padding: 16px; position: relative; counter-increment: passo; font-size: 14.5px; }
+.fluxo div::before { content: counter(passo); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--laranja); font-weight: 800; margin-bottom: 10px; }
+.fluxo b { display: block; font-size: 15.5px; margin-bottom: 2px; }
+.fluxo span { color: #c9c2b6; }
+
+/* ── Módulos ──────────────────────────────────────────── */
+.modulo { background: var(--cartao); border: 1px solid var(--borda); border-radius: 22px; box-shadow: var(--sombra); margin-top: 26px; overflow: hidden; scroll-margin-top: 16px; }
+.modulo.marcado { border-color: var(--laranja); box-shadow: 0 0 0 2px var(--laranja), var(--sombra); }
+.mod-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 22px 22px 0; flex-wrap: wrap; }
+.mod-topo h3 { font-size: 22px; margin: 0; }
+.mod-num { font-size: 12.5px; font-weight: 800; color: var(--tinta-3); letter-spacing: .08em; text-transform: uppercase; }
+.preco { text-align: right; }
+.preco strong { font-size: 26px; display: block; line-height: 1; }
+.preco small { color: var(--tinta-3); font-size: 13px; }
+.mod-corpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 26px; padding: 18px 22px 22px; align-items: start; }
+.mod-texto p { color: var(--tinta-2); }
+.lista { list-style: none; padding: 0; margin: 0 0 16px; }
+.lista li { padding: 6px 0 6px 28px; position: relative; font-size: 15px; }
+.lista li::before { content: ""; position: absolute; left: 4px; top: 13px; width: 12px; height: 7px; border-left: 2.5px solid var(--laranja); border-bottom: 2.5px solid var(--laranja); transform: rotate(-45deg); }
+.escolha { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; background: #faf6f0; border: 1px solid var(--borda); cursor: pointer; user-select: none; font-weight: 650; }
+.escolha input { width: 22px; height: 22px; accent-color: var(--laranja); margin: 0; }
+.escolha.travado { cursor: default; background: #fff4e6; border-color: #f6d3a8; }
+.escolha small { display: block; font-weight: 400; color: var(--tinta-3); font-size: 13px; }
+.dica-dep { font-size: 13px; color: var(--tinta-3); margin-top: 8px; }
+
+/* ── Palco dos protótipos ─────────────────────────────── */
+.palco { background: linear-gradient(160deg, #201a14, var(--carvao)); border-radius: 18px; padding: 18px; color: #fff; position: relative; min-height: 100%; }
+.palco-rotulo { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: #a9a196; font-weight: 700; margin-bottom: 12px; display: flex; justify-content: space-between; gap: 8px; }
+.palco-rotulo i { font-style: normal; color: var(--amarelo); }
+.modulo.largo .mod-corpo { grid-template-columns: minmax(0, 1fr); }
+.modulo.largo .mod-texto { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 26px; align-items: start; }
+.modulo.largo .mod-texto > p { grid-column: 1 / -1; }
+.dupla { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 14px; align-items: start; }
+
+.celular { background: #000; border-radius: 30px; padding: 10px; box-shadow: 0 10px 30px #0008, inset 0 0 0 2px #333; max-width: 300px; margin: 0 auto; width: 100%; }
+.tela { background: #181818; border-radius: 22px; overflow: hidden; height: 470px; display: flex; flex-direction: column; position: relative; color: #f2eee8; font-size: 13.5px; }
+.tela-topo { padding: 16px 14px 12px; background: linear-gradient(180deg, #2a1608, #181818); }
+.tela-topo b { font-size: 16px; display: block; }
+.tela-topo span { font-size: 11.5px; color: #c2b8aa; }
+.rolagem { flex: 1; overflow-y: auto; padding: 8px 12px 12px; scrollbar-width: thin; }
+.kit { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 10px; background: #232323; border-radius: 12px; margin-bottom: 8px; }
+.kit b { font-size: 14px; }
+.kit small { display: block; color: #b8afa2; font-size: 11.5px; }
+.kit .p { color: var(--amarelo); font-weight: 700; font-size: 13px; }
+.mais { width: 34px; height: 34px; border-radius: 10px; border: 0; background: var(--laranja); color: #fff; font-size: 20px; font-weight: 700; flex: none; }
+.mais:active { transform: scale(.94); }
+.barra-carrinho { margin: 0 10px 10px; background: var(--laranja); color: #fff; border: 0; border-radius: 12px; padding: 12px; font-weight: 700; display: flex; justify-content: space-between; }
+.barra-carrinho:disabled { background: #3a3a3a; color: #8d867c; cursor: default; }
+.passo-tela { position: absolute; inset: 0; background: #181818; display: flex; flex-direction: column; }
+.campo-cel { background: #262626; border: 1px solid #343434; color: #fff; border-radius: 10px; padding: 10px; width: 100%; font: inherit; font-size: 13.5px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { border: 1px solid #444; background: #222; color: #ddd; padding: 7px 11px; border-radius: 99px; font-size: 12.5px; }
+.chip.on { background: #3a2410; border-color: var(--laranja); color: #fff; }
+.linha-res { display: flex; justify-content: space-between; padding: 4px 0; color: #d4ccc0; }
+.linha-res.total { color: #fff; font-weight: 800; font-size: 15px; border-top: 1px solid #333; margin-top: 6px; padding-top: 8px; }
+.btn-cel { border: 0; border-radius: 12px; padding: 12px; background: var(--laranja); color: #fff; font-weight: 700; width: 100%; }
+.btn-cel.sec { background: #2c2c2c; color: #ddd; }
+.sucesso { text-align: center; padding: 40px 18px; }
+.sucesso .bola { width: 64px; height: 64px; border-radius: 50%; background: var(--verde); display: grid; place-items: center; font-size: 32px; margin: 0 auto 14px; }
+
+/* Painel da loja (fila) */
+.painel { background: #f6f3ee; color: var(--tinta); border-radius: 14px; padding: 12px; min-height: 300px; }
+.painel-topo { display: flex; justify-content: space-between; align-items: center; font-size: 13px; margin-bottom: 10px; }
+.painel-topo b { font-size: 14.5px; }
+.ao-vivo { display: inline-flex; gap: 6px; align-items: center; font-size: 11.5px; color: var(--verde); font-weight: 700; }
+.ao-vivo::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--verde); animation: pulso 1.6s infinite; }
+@keyframes pulso { 50% { opacity: .25; } }
+.colunas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.coluna h4 { margin: 0 0 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--tinta-2); display: flex; justify-content: space-between; }
+.cartao-pedido { background: #fff; border: 1px solid var(--borda); border-radius: 10px; padding: 8px; margin-bottom: 6px; font-size: 12px; animation: entra .35s ease; }
+.cartao-pedido.novo { border-color: var(--laranja); box-shadow: 0 0 0 2px #f57c0033; }
+.cartao-pedido b { font-size: 12.5px; }
+.cartao-pedido .m { color: var(--tinta-3); }
+.cartao-pedido button { margin-top: 6px; width: 100%; border: 0; background: var(--carvao); color: #fff; border-radius: 7px; padding: 5px; font-size: 11.5px; font-weight: 600; }
+@keyframes entra { from { transform: translateY(-6px); opacity: 0; } }
+
+/* Entrega */
+.entrega-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.mapa { background: #1b1f1a; border-radius: 14px; aspect-ratio: 1; position: relative; overflow: hidden; }
+.mapa svg { width: 100%; height: 100%; display: block; }
+.res-taxa { background: #ffffff0d; border: 1px solid #ffffff1a; border-radius: 14px; padding: 14px; }
+.res-taxa .grande { font-size: 30px; font-weight: 800; color: var(--amarelo); }
+.res-taxa .bloq { color: #ff8a80; font-weight: 700; font-size: 18px; }
+.conta { font-size: 12.5px; color: #c2b8aa; margin-top: 6px; }
+.chave { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #ddd; margin-top: 10px; }
+.chave input { accent-color: var(--laranja); width: 18px; height: 18px; }
+
+/* Navegador (site) */
+.navegador { background: #fff; border-radius: 12px; overflow: hidden; color: var(--tinta); }
+.nav-barra { background: #ece8e2; padding: 8px 10px; display: flex; gap: 8px; align-items: center; }
+.nav-barra i { width: 10px; height: 10px; border-radius: 50%; background: #d0c9be; display: inline-block; }
+.nav-url { flex: 1; background: #fff; border-radius: 99px; padding: 4px 12px; font-size: 12px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.site-capa { background: radial-gradient(400px 200px at 80% 0, #4a2a0e, transparent), var(--carvao); color: #fff; padding: 22px 18px; }
+.site-capa h4 { font-size: 22px; margin: 0 0 4px; }
+.site-capa p { color: #d6cec2; font-size: 13px; margin: 0 0 12px; }
+.site-capa .cta { display: inline-block; background: var(--laranja); color: #fff; padding: 9px 14px; border-radius: 10px; font-weight: 700; font-size: 13px; }
+.site-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 14px; font-size: 12px; color: var(--tinta-2); }
+.site-info b { display: block; color: var(--tinta); font-size: 12.5px; }
+.site-kits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 14px 14px; }
+.site-kits div { background: #f6f1ea; border-radius: 10px; padding: 8px; font-size: 12px; }
+.site-kits b { display: block; }
+.google { background: #fff; color: #202124; border-radius: 12px; padding: 16px; font-family: Arial, sans-serif; }
+.google .busca { border: 1px solid #dfe1e5; border-radius: 99px; padding: 8px 14px; font-size: 13px; margin-bottom: 14px; color: #444; }
+.google .site-n { font-size: 12px; color: #4d5156; }
+.google .tit { color: #1a0dab; font-size: 18px; margin: 2px 0; }
+.google .desc { font-size: 13px; color: #4d5156; }
+.zap-previa { background: var(--zap-fundo); border-radius: 12px; padding: 14px; }
+.balao { background: #fff; color: #111; border-radius: 10px; padding: 6px; max-width: 280px; margin-left: auto; font-size: 13px; box-shadow: 0 1px 1px #0002; }
+.balao .card { background: #f0f0f0; border-radius: 7px; overflow: hidden; margin-bottom: 6px; }
+.balao .card div { background: var(--carvao); height: 90px; display: grid; place-items: center; color: var(--laranja); font-weight: 800; font-size: 17px; }
+.balao .card p { margin: 0; padding: 6px 8px; font-size: 12px; color: #444; }
+.abas { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.aba { border: 1px solid #ffffff26; background: transparent; color: #ddd; border-radius: 99px; padding: 6px 12px; font-size: 13px; }
+.aba.on { background: var(--laranja); border-color: var(--laranja); color: #fff; font-weight: 700; }
+
+/* Pagamento */
+.qr { background: #fff; border-radius: 12px; padding: 10px; width: 170px; margin: 6px auto 10px; }
+.qr svg { display: block; width: 100%; }
+.cronometro { text-align: center; color: var(--amarelo); font-weight: 700; font-size: 13px; }
+.copia { display: flex; gap: 6px; margin: 10px 0; }
+.copia span { flex: 1; background: #262626; border-radius: 8px; padding: 8px; font-size: 11px; color: #aaa; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.cartao-cred { background: linear-gradient(135deg, #3b3b3b, #1e1e1e); border-radius: 14px; padding: 16px; height: 150px; display: flex; flex-direction: column; justify-content: space-between; margin: 10px 0; font-family: ui-monospace, monospace; }
+
+/* WhatsApp */
+.zap-tela { background: #0b141a; }
+.zap-topo { background: #1f2c34; padding: 12px; display: flex; gap: 10px; align-items: center; }
+.zap-topo .av { width: 34px; height: 34px; border-radius: 50%; background: var(--laranja); display: grid; place-items: center; font-weight: 800; }
+.zap-topo b { font-size: 14px; display: block; }
+.zap-topo span { font-size: 11px; color: #8fa1ab; }
+.zap-msgs { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.msg { max-width: 86%; padding: 7px 9px 5px; border-radius: 9px; font-size: 13px; line-height: 1.4; animation: entra .3s ease; white-space: pre-line; }
+.msg.loja { background: #1f2c34; align-self: flex-start; border-top-left-radius: 2px; }
+.msg.cli { background: #005c4b; align-self: flex-end; border-top-right-radius: 2px; }
+.msg time { display: block; text-align: right; font-size: 10px; color: #8fa1ab; margin-top: 2px; }
+.msg.robo::before { content: "Resposta automática"; display: block; font-size: 10px; color: var(--amarelo); font-weight: 700; margin-bottom: 2px; letter-spacing: .03em; }
+.opcoes-zap { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px 12px; background: #0b141a; }
+.opcoes-zap button { border: 1px solid #2a3942; background: #1f2c34; color: #e9edef; border-radius: 99px; padding: 7px 11px; font-size: 12.5px; }
+.status-trilha { display: grid; gap: 8px; }
+.status-trilha button { text-align: left; border: 1px solid #ffffff1f; background: #ffffff08; color: #eee; border-radius: 12px; padding: 10px 12px; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+.status-trilha button.feito { border-color: #2e7d4f; background: #2e7d4f26; color: #b9e6c9; }
+.status-trilha button:disabled { cursor: default; }
+.status-trilha button.prox { border-color: var(--laranja); background: #f57c0026; }
+
+/* Estoque */
+.tabela-est { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.tabela-est td { padding: 8px 6px; border-bottom: 1px solid #ffffff14; }
+.tabela-est tr.mexeu td { animation: brilho 1.2s ease; }
+@keyframes brilho { 0% { background: #f57c0040; } 100% { background: transparent; } }
+.barra-est { height: 6px; border-radius: 99px; background: #ffffff1a; overflow: hidden; min-width: 70px; }
+.barra-est i { display: block; height: 100%; background: var(--verde); border-radius: 99px; transition: width .5s ease; }
+.barra-est i.baixo { background: var(--vermelho); }
+.alerta-est { color: #ff8a80; font-size: 12px; font-weight: 700; }
+.acoes-palco { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.btn-palco { border: 0; background: var(--laranja); color: #fff; border-radius: 10px; padding: 9px 13px; font-weight: 700; font-size: 13.5px; }
+.btn-palco.sec { background: #ffffff14; color: #eee; }
+
+/* Relatórios */
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+.kpis div { background: #ffffff0d; border-radius: 12px; padding: 10px 12px; }
+.kpis span { font-size: 11.5px; color: #b5ada2; }
+.kpis b { display: block; font-size: 19px; }
+.grafico { background: #ffffff08; border-radius: 12px; padding: 10px 10px 4px; position: relative; }
+.grafico svg { display: block; width: 100%; height: auto; }
+.grafico .tip { position: absolute; pointer-events: none; background: #fff; color: var(--tinta); font-size: 12px; padding: 6px 9px; border-radius: 8px; box-shadow: 0 4px 14px #0006; transform: translate(-50%, -110%); white-space: nowrap; opacity: 0; transition: opacity .12s; }
+.ranking { display: grid; gap: 6px; margin-top: 12px; font-size: 13px; }
+.ranking div { display: grid; grid-template-columns: 70px 1fr 64px; gap: 8px; align-items: center; }
+.ranking i { display: block; height: 8px; border-radius: 99px; background: var(--laranja); }
+.recompra { margin-top: 12px; display: grid; gap: 6px; font-size: 13px; }
+.recompra div { display: flex; justify-content: space-between; align-items: center; background: #ffffff08; border-radius: 10px; padding: 8px 10px; gap: 8px; }
+.recompra small { color: #b5ada2; display: block; font-size: 11.5px; }
+.recompra button { border: 0; background: var(--zap); color: #fff; border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+
+/* ── Resumo e calculadora ─────────────────────────────── */
+.resumo { background: var(--carvao); color: #fff; border-radius: 24px; padding: 26px; margin-top: 26px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 26px; }
+.resumo h3 { font-size: 22px; }
+.res-linhas { display: grid; gap: 2px; }
+.res-linha { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #ffffff14; font-size: 15px; }
+.res-linha.fora { color: #77706a; text-decoration: line-through; }
+.res-total { background: #ffffff0d; border: 1px solid #ffffff1a; border-radius: 18px; padding: 20px; align-self: start; }
+.res-total .valor { font-size: clamp(36px, 6vw, 52px); font-weight: 800; line-height: 1; margin: 6px 0; color: var(--amarelo); }
+.res-total .valor small { font-size: 16px; color: #c9c2b6; font-weight: 500; }
+.res-total .riscado { color: #a39b90; text-decoration: line-through; font-size: 15px; }
+.economia { display: inline-block; background: #1f8a4c; color: #fff; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 99px; margin-top: 6px; }
+.pacotes { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 6px; }
+.pacotes button { border: 1px solid #ffffff2e; background: transparent; color: #fff; border-radius: 99px; padding: 8px 14px; font-size: 14px; }
+.pacotes button:hover { border-color: var(--laranja); }
+.btn-grande { border: 0; background: var(--laranja); color: #fff; border-radius: 14px; padding: 14px 18px; font-weight: 800; font-size: 16px; width: 100%; margin-top: 14px; }
+.btn-grande:hover { background: var(--laranja-escuro); }
+
+.flutuante { position: fixed; left: 50%; bottom: 14px; transform: translate(-50%, 140%); background: var(--carvao); color: #fff; border-radius: 99px; padding: 8px 8px 8px 18px; display: flex; gap: 14px; align-items: center; box-shadow: 0 10px 30px #0006; z-index: 20; transition: transform .3s ease; width: max-content; max-width: calc(100% - 32px); }
+.flutuante.ver { transform: translate(-50%, 0); }
+.flutuante b { color: var(--amarelo); font-size: 17px; }
+.flutuante span { font-size: 13px; color: #c9c2b6; }
+.flutuante a { background: var(--laranja); color: #fff; text-decoration: none; font-weight: 700; padding: 9px 14px; border-radius: 99px; font-size: 14px; white-space: nowrap; }
+
+.condicoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 20px; }
+.condicoes div { background: var(--cartao); border: 1px solid var(--borda); border-radius: var(--raio); padding: 16px 18px; }
+.condicoes h3 { font-size: 16px; }
+.condicoes p { color: var(--tinta-2); font-size: 14.5px; margin: 0; }
+.passos { counter-reset: p; display: grid; gap: 10px; margin-top: 20px; max-width: 760px; }
+.passos div { counter-increment: p; display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; background: var(--cartao); border: 1px solid var(--borda); border-radius: 14px; padding: 14px; }
+.passos div::before { content: counter(p); width: 36px; height: 36px; border-radius: 50%; background: var(--carvao); color: var(--amarelo); display: grid; place-items: center; font-weight: 800; }
+.passos b { display: block; }
+.passos span { color: var(--tinta-2); font-size: 14.5px; }
+footer { margin-top: 64px; padding: 36px 0 110px; background: var(--carvao); color: #c9c2b6; font-size: 14px; }
+footer b { color: #fff; }
+
+/* ── Celular ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .mod-corpo, .resumo, .modulo.largo .mod-texto { grid-template-columns: 1fr; }
+  .dupla, .entrega-grade { grid-template-columns: 1fr; }
+  .colunas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .mod-topo, .mod-corpo { padding-left: 14px; padding-right: 14px; }
+  .palco { padding: 12px; }
+  .preco { text-align: left; }
+  .kpis b { font-size: 16px; }
+  .site-info, .site-kits { grid-template-columns: 1fr 1fr; }
+  .resumo { padding: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* ── Impressão / PDF ──────────────────────────────────── */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  body { background: #fff; font-size: 12.5px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .flutuante, .pacotes, .btn-grande, .acoes-palco, .opcoes-zap, .abas { display: none !important; }
+  .capa { padding: 30px 0 34px; }
+  section.bloco { padding-top: 26px; }
+  .modulo { break-inside: avoid; box-shadow: none; margin-top: 16px; }
+  .mod-corpo { grid-template-columns: 1fr 1fr; }
+  .tela { height: 420px; }
+  .resumo { break-inside: avoid; }
+  footer { padding-bottom: 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="capa">
+  <div class="miolo">
+    <div class="selo-topo">Proposta comercial</div>
+    <h1>Sistema de pedidos do <em>Império do Churraxco</em></h1>
+    <p class="sub">O seu cardápio vira um link de pedidos. O cliente escolhe o kit, informa o endereço, vê a taxa de entrega na hora e manda o pedido. Você acompanha tudo num painel, do pedido novo até a entrega.</p>
+    <div class="capa-meta">
+      <span>Para <b>Rael</b> · Império do Churraxco</span>
+      <span>Por <b>Erick Lima</b></span>
+      <span id="data-proposta">Novembro de 2026</span>
+    </div>
+    <div class="capa-numeros">
+      <div><strong>6 kits</strong><span>do panfleto no cardápio online</span></div>
+      <div><strong>7 adicionais</strong><span>para aumentar o ticket</span></div>
+      <div><strong>8 módulos</strong><span>você escolhe quais quer</span></div>
+      <div><strong>Por etapas</strong><span>entregas parciais combinadas</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="bloco">
+    <div class="miolo">
+      <div class="rotulo">O planejamento</div>
+      <h2>O que vamos construir para a sua loja</h2>
+      <p class="intro">A partir da nossa conversa, nossa equipe levantou tudo o que a loja precisa e planejou o sistema em cima do cardápio do seu panfleto. Abaixo você vê como cada parte vai funcionar, com protótipos para mexer, e escolhe o que quer usar.</p>
+      <div class="pronto">
+        <div><h3><span class="ok">→</span>Link de pedidos</h3><p>Kits e adicionais do panfleto, com fotos, preços e o que vem em cada kit. Vai funcionar no celular, sem o cliente precisar baixar aplicativo.</p></div>
+        <div><h3><span class="ok">→</span>Painel da loja</h3><p>Os pedidos chegam na hora numa fila organizada por etapa, com impressão, mudança de status e cancelamento.</p></div>
+        <div><h3><span class="ok">→</span>Taxa de entrega automática</h3><p>Calculada pela distância, a R$ 2,00 por km, como combinamos, com bloqueio de áreas, bairros e CEPs.</p></div>
+        <div><h3><span class="ok">→</span>Horário de funcionamento</h3><p>Das 10:30 às 23:00. Fora do horário, o cliente poderá agendar o pedido para mais tarde.</p></div>
+        <div><h3><span class="ok">→</span>Pagamento, WhatsApp e site</h3><p>Pix e cartão pelo link, avisos automáticos no WhatsApp, atendimento automático e a página da loja no Google.</p></div>
+        <div><h3><span class="ok">→</span>Seguro e privado</h3><p>Seus dados protegidos, com senhas e chaves de pagamento criptografadas e cópias de segurança.</p></div>
+      </div>
+
+      <div class="rotulo" style="margin-top:40px">Como funciona</div>
+      <div class="fluxo">
+        <div><b>Cliente abre o link</b><span>pelo Instagram, WhatsApp ou Google</span></div>
+        <div><b>Escolhe o kit</b><span>e os adicionais</span></div>
+        <div><b>Informa o endereço</b><span>e vê a taxa na hora</span></div>
+        <div><b>Paga</b><span>pelo site ou na entrega</span></div>
+        <div><b>Pedido chega no painel</b><span>e o cliente recebe os avisos</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="modulos">
+    <div class="miolo">
+      <div class="rotulo">Módulos</div>
+      <h2>Escolha o que faz sentido para a sua loja</h2>
+      <p class="intro">Cada módulo tem um valor mensal. Mexa nos protótipos ao lado, que mostram como cada parte vai funcionar, e marque o que você quer. O total aparece no fim da página.</p>
+      <div id="lista-modulos"></div>
+
+      <div class="resumo" id="resumo">
+        <div>
+          <div class="rotulo" style="color:var(--amarelo)">Sua escolha</div>
+          <h3>Resumo mensal</h3>
+          <div class="res-linhas" id="res-linhas"></div>
+          <div class="pacotes">
+            <button data-pacote="essencial">Essencial</button>
+            <button data-pacote="recomendado">Recomendado</button>
+            <button data-pacote="completo">Completo</button>
+          </div>
+          <p style="color:#a39b90;font-size:13.5px;margin:0">Os módulos podem ser ligados ou desligados depois. O valor da mensalidade muda a partir do mês seguinte.</p>
+        </div>
+        <div class="res-total">
+          <div style="color:#c9c2b6;font-size:14px">Total por mês</div>
+          <div class="riscado num" id="res-riscado" hidden></div>
+          <div class="valor num" id="res-valor">R$ 0</div>
+          <div id="res-economia"></div>
+          <p style="color:#c9c2b6;font-size:13.5px;margin:12px 0 0" id="res-dica"></p>
+          <button class="btn-grande" id="copiar">Copiar minha escolha</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco">
+    <div class="miolo">
+      <div class="rotulo">Condições</div>
+      <h2>Como funciona a contratação</h2>
+      <div class="condicoes">
+        <div><h3>Sem custo de implantação</h3><p>Nossa equipe cadastra o cardápio do panfleto, o horário e a taxa de entrega. Você só revisa e aprova.</p></div>
+        <div><h3>Mensalidade</h3><p>Paga pelo próprio painel, com Pix ou cartão, no dia de vencimento que você escolher.</p></div>
+        <div><h3>Tudo incluso</h3><p>Hospedagem, segurança, cópias de segurança, atualizações e suporte pelo WhatsApp.</p></div>
+        <div><h3>O dinheiro é seu</h3><p>Os pagamentos dos clientes caem direto na sua conta (Mercado Pago ou InfinitePay). As taxas de cada uma são cobradas por elas, à parte.</p></div>
+        <div><h3>Liberdade</h3><p>Liga ou desliga módulos quando quiser. Seus dados e pedidos ficam guardados.</p></div>
+        <div><h3>Validade</h3><p>Proposta válida por 15 dias a partir da data acima.</p></div>
+      </div>
+
+      <div class="rotulo" style="margin-top:40px">Cronograma</div>
+      <h2>Entregas por etapas</h2>
+      <p class="intro">O sistema é entregue em partes, para a loja começar a vender pelo link o quanto antes. As datas de cada etapa são combinadas com você depois da aprovação, e cada etapa inclui só os módulos escolhidos.</p>
+      <div class="passos">
+        <div><p style="margin:0"><b>Etapa 1 · Link de pedidos, painel e taxa de entrega</b><span>Cardápio online com os kits do panfleto, fila de pedidos e taxa calculada pela distância. A loja já começa a receber pedidos pelo link.</span></p></div>
+        <div><p style="margin:0"><b>Etapa 2 · Pagamento pelo site e WhatsApp</b><span>Pix e cartão com confirmação automática, conexão do WhatsApp da loja e avisos de cada etapa do pedido.</span></p></div>
+        <div><p style="margin:0"><b>Etapa 3 · Atendimento automático, página no Google, estoque e relatórios</b><span>O WhatsApp respondendo sozinho, a página da loja nas buscas, a baixa de estoque e os números de venda.</span></p></div>
+      </div>
+
+      <div class="rotulo" style="margin-top:40px">Próximos passos</div>
+      <h2>Do sim ao primeiro pedido</h2>
+      <div class="passos">
+        <div><p style="margin:0"><b>Escolher os módulos</b><span>Marque acima o que quer usar.</span></p></div>
+        <div><p style="margin:0"><b>Combinar as datas das entregas</b><span>Definimos juntos a data de cada etapa do cronograma.</span></p></div>
+        <div><p style="margin:0"><b>Revisar o cardápio juntos</b><span>Confirmar alguns detalhes do panfleto, o endereço da loja e as áreas onde você não entrega.</span></p></div>
+        <div><p style="margin:0"><b>Fotos e logo</b><span>Enviar as fotos dos kits e o logo para deixar o link com a cara da loja.</span></p></div>
+        <div><p style="margin:0"><b>Conectar as contas</b><span>Ler o QR Code do WhatsApp da loja e ligar a conta de recebimento (Mercado Pago ou InfinitePay).</span></p></div>
+        <div><p style="margin:0"><b>No ar</b><span>Divulgar o link no Instagram, no status do WhatsApp e no panfleto.</span></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="miolo">
+    <b>Erick Lima</b><br>
+    Proposta preparada para o Império do Churraxco · Rua José Sombra, 121 · Rio de Janeiro
+  </div>
+</footer>
+
+<div class="flutuante" id="flutuante"><span id="flu-qtd">0 módulos</span><b class="num" id="flu-valor">R$ 0</b><a href="#resumo">Ver resumo</a></div>
+
+<script>
+/* ═══ Valores da proposta: troque aqui (em reais por mês) ═══════════════════ */
+const PRECOS = { base: 149, entrega: 49, site: 39, pagamento: 49, whatsapp: 69, chatbot: 59, estoque: 29, relatorios: 39 };
+const PACOTE_COMPLETO = 397;                      // todos os módulos juntos
+const PACOTES = {
+  essencial:   ['base', 'entrega'],
+  recomendado: ['base', 'entrega', 'pagamento', 'whatsapp', 'site'],
+  completo:    Object.keys(PRECOS),
+};
+/* ════════════════════════════════════════════════════════════════════════ */
+
+const reais = v => 'R$ ' + (Number.isInteger(v) ? v.toLocaleString('pt-BR') : v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+const reaisC = c => 'R$ ' + (c / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const $ = (s, el = document) => el.querySelector(s);
+const hora = (min = 0) => { const d = new Date(Date.now() + min * 60000); return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); };
+document.getElementById('data-proposta').textContent = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Cardápio do panfleto
+const KITS = [
+  { n: 'Kit 1', p: '3 a 4 pessoas', c: 11999, itens: 'Contra filé grill, drumet, picanha suína, linguiça, pão de alho, farofa, sal e carvão' },
+  { n: 'Kit 2', p: '7 a 8 pessoas', c: 19999, itens: 'Contra filé grill, drumet, linguiça, coração, queijo coalho, salsichão…' },
+  { n: 'Kit 3', p: '10 a 12 pessoas', c: 27499, itens: 'Contra filé grill, drumet, linguiça, picanha suína, coração, queijo coalho…' },
+  { n: 'Kit 4', p: '3 a 4 pessoas', c: 13999, itens: 'Picanha bovina, drumet, picanha suína, linguiça, pão de alho, farofa…' },
+  { n: 'Kit 5', p: '9 a 10 pessoas', c: 24999, itens: 'Picanha bovina, picanha suína, drumet, linguiça, coração, queijo coalho…' },
+  { n: 'Kit 6', p: '3 a 4 pessoas', c: 13999, itens: 'Picanha bovina, contra filé, drumet, linguiça, pão de alho, farofa…' },
+];
+const ADIC = [{ n: 'Queijo coalho', c: 2199 }, { n: 'Pão de alho', c: 999 }, { n: 'Carvão 2 kg', c: 1199 }];
+
+/* ═══ Módulos ═══════════════════════════════════════════════════════════ */
+const MODULOS = [
+  { id: 'base', nome: 'Link de pedidos e painel', obrigatorio: true, largo: true,
+    texto: 'O coração do sistema. O seu cardápio online e o painel onde a equipe recebe e organiza os pedidos.',
+    itens: ['Link próprio da loja para divulgar no Instagram e no WhatsApp', 'Kits com o que vem em cada um, para quantas pessoas, e adicionais', 'Retirada na loja ou entrega, com horário de funcionamento e pedido agendado', 'Painel com a fila de pedidos por etapa, impressão e cadastro de clientes', 'Acesso para você e para a sua equipe, cada um com a própria senha'],
+    palco: palcoBase },
+  { id: 'entrega', nome: 'Taxa de entrega automática',
+    texto: 'Chega de calcular frete no WhatsApp. O cliente digita o CEP e o sistema calcula a taxa pela distância até a loja.',
+    itens: ['R$ 2,00 por km, como combinamos, com taxa mínima e distância máxima se quiser', 'Bloqueio de áreas de risco desenhadas no mapa, bairros inteiros ou CEPs', 'Entrega grátis acima de um valor, se você quiser', 'Quando o endereço não é encontrado, o pedido entra com "taxa a confirmar"'],
+    palco: palcoEntrega },
+  { id: 'pagamento', nome: 'Pagamento pelo site',
+    texto: 'O cliente paga antes, pelo celular, e o pedido só entra na fila depois que o pagamento é confirmado. O dinheiro cai direto na sua conta.',
+    itens: ['Pix com QR Code e copia e cola (Mercado Pago ou InfinitePay)', 'Cartão de crédito pela página segura da InfinitePay', 'Confirmação automática, sem precisar conferir comprovante', 'Sem pagamento no prazo, o pedido é cancelado sozinho', 'O cliente ainda pode escolher pagar na entrega'],
+    palco: palcoPagamento },
+  { id: 'whatsapp', nome: 'WhatsApp com avisos automáticos',
+    texto: 'O WhatsApp da loja conectado ao sistema. O cliente recebe cada etapa do pedido sem ninguém precisar digitar.',
+    itens: ['Aviso para você a cada pedido novo, com tudo o que foi pedido', 'Mensagens para o cliente: recebido, em preparo, saiu para entrega e entregue', 'Você escolhe quais avisos mandar e edita o texto de cada um', 'Funciona no número que a loja já usa'],
+    palco: palcoWhatsapp },
+  { id: 'chatbot', nome: 'Atendimento automático no WhatsApp', depende: 'whatsapp',
+    texto: 'Responde sozinho quem chama no WhatsApp: manda o cardápio, o horário, o link de pedidos e mostra o status do pedido.',
+    itens: ['Menu de opções simples, por número', 'Mostra o andamento do pedido do cliente', 'Passa para um atendente quando o cliente pede', 'Para sozinho quando alguém da equipe responde a conversa'],
+    palco: palcoChatbot },
+  { id: 'site', nome: 'Página da loja no Google',
+    texto: 'Uma página da loja que aparece nas buscas do Google e fica bonita quando o link é compartilhado no WhatsApp.',
+    itens: ['Endereço, horário, mapa, kits em destaque e botão para pedir', 'Preparada para aparecer no Google (título, descrição e mapa do site)', 'Prévia bonita ao compartilhar o link no WhatsApp e no Instagram', 'Pode usar um domínio próprio, como imperiodochurraxco.com.br'],
+    palco: palcoSite },
+  { id: 'estoque', nome: 'Controle de estoque',
+    texto: 'Cada venda dá baixa nas carnes e nos itens de cada kit. Você sabe o que está acabando antes de faltar.',
+    itens: ['Estoque em quilo, grama ou unidade', 'Baixa automática a cada pedido, devolução automática no cancelamento', 'Aviso de estoque baixo', 'Opção de parar de vender o kit quando um item acabar'],
+    palco: palcoEstoque },
+  { id: 'relatorios', nome: 'Relatórios, cupons e recompra',
+    texto: 'Quanto vendeu, o que mais sai, quem são os melhores clientes e quem sumiu e precisa de um lembrete.',
+    itens: ['Faturamento, pedidos e ticket médio por período', 'Kits mais vendidos e horários de pico', 'Lista de clientes que não pedem há um tempo, com botão para chamar no WhatsApp', 'Cupons de desconto com limite de uso e validade'],
+    palco: palcoRelatorios },
+];
+
+const escolhidos = new Set(['base']);
+const lista = $('#lista-modulos');
+MODULOS.forEach((m, i) => {
+  const el = document.createElement('article');
+  el.className = 'modulo' + (m.largo ? ' largo' : '');
+  el.id = 'm-' + m.id;
+  el.innerHTML = `
+    <div class="mod-topo">
+      <div><div class="mod-num">Módulo ${i + 1}${m.obrigatorio ? ' · base do sistema' : ''}</div><h3>${m.nome}</h3></div>
+      <div class="preco"><strong class="num">${reais(PRECOS[m.id])}</strong><small>por mês</small></div>
+    </div>
+    <div class="mod-corpo">
+      <div class="mod-texto">
+        <p>${m.texto}</p>
+        <ul class="lista">${m.itens.map(t => `<li>${t}</li>`).join('')}</ul>
+        <label class="escolha ${m.obrigatorio ? 'travado' : ''}">
+          <input type="checkbox" data-mod="${m.id}" ${m.obrigatorio ? 'checked disabled' : ''}>
+          <span>${m.obrigatorio ? 'Incluído' : 'Quero este módulo'}<small>${m.obrigatorio ? 'Os outros módulos funcionam em cima deste.' : reais(PRECOS[m.id]) + ' por mês'}</small></span>
+        </label>
+        ${m.depende ? '<div class="dica-dep">Precisa do módulo de WhatsApp com avisos automáticos.</div>' : ''}
+      </div>
+      <div class="palco" data-palco="${m.id}"></div>
+    </div>`;
+  lista.appendChild(el);
+  m.palco(el.querySelector('.palco'));
+});
+
+lista.addEventListener('change', ev => {
+  const c = ev.target.closest('[data-mod]');
+  if (!c) return;
+  const id = c.dataset.mod;
+  if (c.checked) { escolhidos.add(id); const dep = MODULOS.find(m => m.id === id).depende; if (dep) escolhidos.add(dep); }
+  else { escolhidos.delete(id); MODULOS.filter(m => m.depende === id).forEach(m => escolhidos.delete(m.id)); }
+  atualizar();
+});
+document.querySelectorAll('[data-pacote]').forEach(b => b.addEventListener('click', () => {
+  escolhidos.clear(); PACOTES[b.dataset.pacote].forEach(x => escolhidos.add(x)); atualizar();
+}));
+
+function total() {
+  const soma = [...escolhidos].reduce((s, id) => s + PRECOS[id], 0);
+  const completo = escolhidos.size === MODULOS.length;
+  return { soma, valor: completo ? PACOTE_COMPLETO : soma, completo };
+}
+
+function atualizar() {
+  document.querySelectorAll('[data-mod]').forEach(c => { c.checked = escolhidos.has(c.dataset.mod); });
+  MODULOS.forEach(m => $('#m-' + m.id).classList.toggle('marcado', escolhidos.has(m.id)));
+  const t = total();
+  $('#res-linhas').innerHTML = MODULOS.map(m => `<div class="res-linha ${escolhidos.has(m.id) ? '' : 'fora'}"><span>${m.nome}</span><span class="num">${reais(PRECOS[m.id])}</span></div>`).join('');
+  $('#res-valor').innerHTML = `${reais(t.valor)}<small> /mês</small>`;
+  $('#res-riscado').hidden = !t.completo;
+  $('#res-riscado').textContent = reais(t.soma);
+  $('#res-economia').innerHTML = t.completo ? `<span class="economia">Pacote completo: economia de ${reais(t.soma - PACOTE_COMPLETO)} por mês</span>` : '';
+  const faltam = MODULOS.length - escolhidos.size;
+  const somaTudo = Object.values(PRECOS).reduce((a, b) => a + b, 0);
+  $('#res-dica').textContent = t.completo ? 'Todos os módulos, com o desconto do pacote completo.'
+    : `Com todos os ${MODULOS.length} módulos, o pacote completo sai por ${reais(PACOTE_COMPLETO)} em vez de ${reais(somaTudo)}${faltam === 1 ? ': falta só 1 módulo.' : '.'}`;
+  $('#flu-qtd').textContent = `${escolhidos.size} ${escolhidos.size === 1 ? 'módulo' : 'módulos'}`;
+  $('#flu-valor').textContent = reais(t.valor) + '/mês';
+}
+atualizar();
+
+$('#copiar').addEventListener('click', async ev => {
+  const t = total();
+  const texto = `Império do Churraxco: módulos escolhidos\n` + MODULOS.filter(m => escolhidos.has(m.id)).map(m => `• ${m.nome}: ${reais(PRECOS[m.id])}`).join('\n')
+    + `\nTotal: ${reais(t.valor)} por mês${t.completo ? ' (pacote completo)' : ''}`;
+  try { await navigator.clipboard.writeText(texto); ev.target.textContent = 'Copiado! É só colar no WhatsApp'; }
+  catch { prompt('Copie o texto abaixo:', texto); }
+  setTimeout(() => { ev.target.textContent = 'Copiar minha escolha'; }, 3000);
+});
+
+// Barra flutuante: aparece entre os módulos e some no resumo
+const flu = $('#flutuante');
+
+addEventListener('scroll', () => {
+  const mods = $('#modulos').getBoundingClientRect(), res = $('#resumo').getBoundingClientRect();
+  flu.classList.toggle('ver', mods.top < innerHeight * .6 && res.top > innerHeight * .8);
+}, { passive: true });
+
+/* ═══ Protótipos ════════════════════════════════════════════════════════ */
+
+// 1. Link de pedidos + painel
+function palcoBase(el) {
+  let carrinho = [], numero = 41;
+  const fila = { recebido: [{ n: 39, nome: 'Carla', it: 'Kit 2', t: 'Entrega · Penha', v: 21399 }], preparo: [{ n: 38, nome: 'João', it: 'Kit 1 + Carvão', t: 'Retirada', v: 13198 }], saiu: [{ n: 37, nome: 'Bruna', it: 'Kit 5', t: 'Entrega · Vista Alegre', v: 25799 }], entregue: [] };
+  const COLS = [['recebido', 'Recebido'], ['preparo', 'Em preparo'], ['saiu', 'Saiu'], ['entregue', 'Entregue']];
+  el.innerHTML = `<div class="palco-rotulo"><span>Protótipo</span><i>Faça um pedido ←→ veja chegar no painel</i></div>
+    <div class="dupla"><div class="celular"><div class="tela" id="b-tela"></div></div>
+    <div class="painel"><div class="painel-topo"><b>Painel · Pedidos</b><span class="ao-vivo">ao vivo</span></div><div class="colunas" id="b-fila"></div></div></div>`;
+  const tela = $('#b-tela', el), filaEl = $('#b-fila', el);
+  const totalC = () => carrinho.reduce((s, x) => s + x.c, 0);
+  function cardapio() {
+    tela.innerHTML = `<div class="tela-topo"><b>Império do Churraxco</b><span>Aberto · 10:30 às 23:00</span></div>
+      <div class="rolagem">${KITS.map((k, i) => `<div class="kit"><div><b>${k.n}</b><small>${k.p}</small><span class="p num">${reaisC(k.c)}</span></div><button class="mais" data-k="${i}" aria-label="Adicionar ${k.n}">+</button></div>`).join('')}
+        <div style="font-size:12px;color:#b8afa2;margin:10px 2px 6px">Adicionais</div>
+        ${ADIC.map((a, i) => `<div class="kit"><div><b>${a.n}</b><span class="p num">${reaisC(a.c)}</span></div><button class="mais" data-a="${i}" aria-label="Adicionar ${a.n}">+</button></div>`).join('')}</div>
+      <button class="barra-carrinho" id="b-ver" ${carrinho.length ? '' : 'disabled'}><span>${carrinho.length ? carrinho.length + (carrinho.length === 1 ? ' item' : ' itens') : 'Toque no + para adicionar'}</span><span class="num">${carrinho.length ? reaisC(totalC()) : ''}</span></button>`;
+    tela.querySelectorAll('[data-k],[data-a]').forEach(b => b.addEventListener('click', () => {
+      carrinho.push(b.dataset.k != null ? KITS[b.dataset.k] : ADIC[b.dataset.a]);
+      const r = $('.rolagem', tela).scrollTop; cardapio(); $('.rolagem', tela).scrollTop = r;
+    }));
+    $('#b-ver', tela).addEventListener('click', finalizar);
+  }
+  function finalizar() {
+    let tipo = 'entrega';
+    const desenha = () => {
+      const taxa = tipo === 'entrega' ? 800 : 0;
+      tela.innerHTML = `<div class="tela-topo"><b>Seu pedido</b><span>Confira e envie</span></div>
+        <div class="rolagem">
+          ${carrinho.map(x => `<div class="linha-res"><span>1× ${x.n}</span><span class="num">${reaisC(x.c)}</span></div>`).join('')}
+          <div class="chips" style="margin:12px 0"><button class="chip ${tipo === 'entrega' ? 'on' : ''}" data-t="entrega">Entrega</button><button class="chip ${tipo === 'retirada' ? 'on' : ''}" data-t="retirada">Retirar na loja</button></div>
+          <input class="campo-cel" value="Maria Silva" aria-label="Nome" style="margin-bottom:8px">
+          ${tipo === 'entrega' ? '<input class="campo-cel" value="Rua Honório, 120 · Irajá" aria-label="Endereço" style="margin-bottom:8px">' : '<div style="font-size:12px;color:#b8afa2;margin-bottom:8px">Retirada na Rua José Sombra, 121</div>'}
+          <div class="linha-res"><span>Taxa de entrega</span><span class="num">${taxa ? reaisC(taxa) : 'Grátis'}</span></div>
+          <div class="linha-res total"><span>Total</span><span class="num">${reaisC(totalC() + taxa)}</span></div>
+        </div>
+        <div style="padding:0 10px 10px;display:grid;gap:6px"><button class="btn-cel" id="b-env">Enviar pedido</button><button class="btn-cel sec" id="b-volta">Voltar ao cardápio</button></div>`;
+      tela.querySelectorAll('[data-t]').forEach(b => b.addEventListener('click', () => { tipo = b.dataset.t; desenha(); }));
+      $('#b-volta', tela).addEventListener('click', cardapio);
+      $('#b-env', tela).addEventListener('click', () => {
+        numero++;
+        fila.recebido.unshift({ n: numero, nome: 'Maria', it: carrinho.map(x => x.n).join(' + '), t: tipo === 'entrega' ? 'Entrega · Irajá' : 'Retirada', v: totalC() + taxa, novo: true });
+        desenharFila();
+        tela.innerHTML = `<div class="sucesso"><div class="bola">✓</div><b style="font-size:18px">Pedido #${String(numero).padStart(4, '0')} recebido!</b>
+          <p style="color:#c2b8aa;margin-top:8px">Acompanhe por aqui. Avisamos a cada etapa.</p><button class="btn-cel sec" id="b-novo" style="margin-top:14px">Fazer outro pedido</button></div>`;
+        carrinho = [];
+        $('#b-novo', tela).addEventListener('click', cardapio);
+      });
+    };
+    desenha();
+  }
+  function desenharFila() {
+    filaEl.innerHTML = COLS.map(([k, t], ci) => `<div class="coluna"><h4>${t}<span>${fila[k].length}</span></h4>
+      ${fila[k].map((p, pi) => `<div class="cartao-pedido ${p.novo ? 'novo' : ''}"><b>#${String(p.n).padStart(4, '0')} · ${p.nome}</b><div class="m">${p.it}</div><div class="m">${p.t}</div><div class="num"><b>${reaisC(p.v)}</b></div>
+        ${ci < 3 ? `<button data-c="${k}" data-i="${pi}">${['Preparar', 'Saiu para entrega', 'Entregue'][ci]} →</button>` : ''}</div>`).join('')}</div>`).join('');
+    filaEl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      const ci = COLS.findIndex(c => c[0] === b.dataset.c);
+      const [p] = fila[b.dataset.c].splice(Number(b.dataset.i), 1); p.novo = false;
+      fila[COLS[ci + 1][0]].unshift(p); desenharFila();
+    }));
+  }
+  cardapio(); desenharFila();
+}
+
+// 2. Entrega
+function palcoEntrega(el) {
+  const BAIRROS = [
+    { n: 'Irajá', cep: '21230-000', km: 1.2, ang: 40 }, { n: 'Vista Alegre', cep: '21230-480', km: 2.3, ang: 160 },
+    { n: 'Penha', cep: '21070-000', km: 4.8, ang: 200 }, { n: 'Madureira', cep: '21310-000', km: 5.6, ang: 280 },
+    { n: 'Méier', cep: '20735-000', km: 9.1, ang: 230 }, { n: 'Área de risco (exemplo)', cep: '21240-000', km: 11.2, ang: 301, risco: true },
+    { n: 'Barra da Tijuca', cep: '22640-100', km: 20.6, ang: 250 },
+  ];
+  let sel = 0, limite = false;
+  el.innerHTML = `<div class="palco-rotulo"><span>Protótipo</span><i>Escolha onde o cliente mora</i></div>
+    <div class="chips" id="e-chips" style="margin-bottom:12px"></div>
+    <div class="entrega-grade"><div class="mapa" id="e-mapa"></div><div><div class="res-taxa" id="e-res"></div>
+    <label class="chave"><input type="checkbox" id="e-lim"> Entregar só até 15 km</label></div></div>`;
+  const desenha = () => {
+    const b = BAIRROS[sel];
+    $('#e-chips', el).innerHTML = BAIRROS.map((x, i) => `<button class="chip ${i === sel ? 'on' : ''}" data-b="${i}">${x.n}</button>`).join('');
+    el.querySelectorAll('[data-b]').forEach(c => c.addEventListener('click', () => { sel = Number(c.dataset.b); desenha(); }));
+    const escala = 46 / 22, cx = 50, cy = 50;
+    const pos = x => { const r = Math.min(x.km, 22) * escala, a = x.ang * Math.PI / 180; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; };
+    const [px, py] = pos(b);
+    $('#e-mapa', el).innerHTML = `<svg viewBox="0 0 100 100" role="img" aria-label="Mapa com a loja no centro e o endereço do cliente">
+      <defs><pattern id="ruas" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(18)"><path d="M0 4h8M4 0v8" stroke="#ffffff10" stroke-width=".6"/></pattern></defs>
+      <rect width="100" height="100" fill="url(#ruas)"/>
+      ${[5, 10, 15, 20].map(k => `<circle cx="50" cy="50" r="${k * escala}" fill="none" stroke="${limite && k === 15 ? '#f57c00' : '#ffffff22'}" stroke-width="${limite && k === 15 ? .8 : .4}" stroke-dasharray="${limite && k === 15 ? '0' : '1.5 1.5'}"/><text x="50" y="${50 - k * escala - 1}" font-size="2.8" fill="#ffffff66" text-anchor="middle">${k} km</text>`).join('')}
+      <path d="M55 25 l10 -4 l8 6 l-3 9 l-11 2 z" fill="#d32f2f55" stroke="#d32f2f" stroke-width=".5"/><text x="64" y="20" font-size="2.8" fill="#ff8a80" text-anchor="middle">sem entrega</text>
+      <line x1="50" y1="50" x2="${px}" y2="${py}" stroke="#ffc107" stroke-width=".8" stroke-dasharray="2 1.2"/>
+      <circle cx="50" cy="50" r="3.2" fill="#f57c00" stroke="#fff" stroke-width=".8"/>
+      <circle cx="${px}" cy="${py}" r="2.6" fill="${b.risco ? '#d32f2f' : '#ffc107'}" stroke="#121212" stroke-width=".8"/>
+    </svg>`;
+    const kmFinal = Math.ceil(b.km * 1.3), taxa = kmFinal * 2;
+    let html = `<div style="font-size:13px;color:#c2b8aa">CEP ${b.cep} · ${b.n}</div>`;
+    if (b.risco) html += `<div class="bloq" style="margin-top:6px">Não entregamos neste endereço</div><div class="conta">A área está marcada no mapa como "sem entrega". O cliente pode escolher retirar na loja.</div>`;
+    else if (limite && kmFinal > 15) html += `<div class="bloq" style="margin-top:6px">Fora da área de entrega</div><div class="conta">${kmFinal} km de distância, acima do limite de 15 km que você definiu.</div>`;
+    else html += `<div class="grande num">${reais(taxa)},00</div><div class="conta">${b.km.toLocaleString('pt-BR')} km em linha reta × 1,3 (curvas das ruas) = ${kmFinal} km<br>${kmFinal} km × R$ 2,00 = ${reais(taxa)},00</div>`;
+    $('#e-res', el).innerHTML = html;
+  };
+  $('#e-lim', el).addEventListener('change', ev => { limite = ev.target.checked; desenha(); });
+  desenha();
+}
+
+// 3. Pagamento
+function palcoPagamento(el) {
+  let modo = 'pix', timer = null;
+  el.innerHTML = `<div class="palco-rotulo"><span>Protótipo</span><i>Pague e veja o pedido liberar</i></div>
+    <div class="abas"><button class="aba on" data-m="pix">Pix</button><button class="aba" data-m="cartao">Cartão</button></div>
+    <div class="dupla"><div class="celular"><div class="tela" id="p-tela"></div></div>
+    <div><div class="status-trilha" id="p-trilha"></div><p style="color:#a9a196;font-size:13px;margin-top:12px">O pedido fica "aguardando pagamento" e só entra na fila da cozinha quando o banco confirma. Não precisa conferir comprovante.</p></div></div>`;
+  const trilha = pago => { $('#p-trilha', el).innerHTML = `
+    <button disabled class="feito">Pedido #0042 criado <span>✓</span></button>
+    <button disabled class="${pago ? 'feito' : 'prox'}">${pago ? 'Pagamento confirmado' : 'Aguardando pagamento…'} <span>${pago ? '✓' : ''}</span></button>
+    <button disabled class="${pago ? 'feito' : ''}">Entrou na fila da cozinha <span>${pago ? '✓' : ''}</span></button>`; };
+  const qr = () => { let s = 7, r = ''; const rnd = () => (s = (s * 9301 + 49297) % 233280) / 233280;
+    for (let y = 0; y < 25; y++) for (let x = 0; x < 25; x++) { const canto = (x < 7 && y < 7) || (x > 17 && y < 7) || (x < 7 && y > 17);
+      const borda = canto && (x % 18 === 0 || x % 18 === 6 || y % 18 === 0 || y % 18 === 6 || (x % 18 > 1 && x % 18 < 5 && y % 18 > 1 && y % 18 < 5));
+      if (canto ? borda : rnd() > .52) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`; }
+    return `<svg viewBox="0 0 25 25" shape-rendering="crispEdges" aria-label="QR Code de exemplo"><g fill="#111">${r}</g></svg>`; };
+  const desenha = () => {
+    clearInterval(timer); trilha(false);
+    el.querySelectorAll('.aba').forEach(a => a.classList.toggle('on', a.dataset.m === modo));
+    const tela = $('#p-tela', el);
+    if (modo === 'pix') {
+      let seg = 29 * 60 + 59;
+      tela.innerHTML = `<div class="tela-topo"><b>Pague com Pix</b><span>Pedido #0042 · ${reaisC(13798)}</span></div>
+        <div class="rolagem" style="text-align:center"><div class="qr">${qr()}</div><div class="cronometro">Pix válido por <span id="p-t" class="num">29:59</span></div>
+        <div class="copia"><span>00020126580014br.gov.bcb.pix0136a1b2c3d4-imperio…</span><button class="chip">Copiar</button></div>
+        <button class="btn-cel" id="p-pagar">Simular: cliente pagou</button></div>`;
+      timer = setInterval(() => { seg--; const t = $('#p-t', el); if (t) t.textContent = `${Math.floor(seg / 60)}:${String(seg % 60).padStart(2, '0')}`; }, 1000);
+    } else {
+      tela.innerHTML = `<div class="tela-topo"><b>Pague com cartão</b><span>Pedido #0042 · ${reaisC(13798)}</span></div>
+        <div class="rolagem"><div style="font-size:11.5px;color:#9fd3b1;margin:4px 0">🔒 Página segura da InfinitePay</div>
+        <div class="cartao-cred"><span style="color:#ffc107">Crédito</span><span style="letter-spacing:.12em">•••• •••• •••• 4821</span><span style="font-size:12px;color:#bbb">MARIA SILVA · 08/29</span></div>
+        <div class="chips" style="margin-bottom:10px"><button class="chip on">1× ${reaisC(13798)}</button><button class="chip">2× ${reaisC(6899)}</button></div>
+        <button class="btn-cel" id="p-pagar">Pagar ${reaisC(13798)}</button></div>`;
+    }
+    $('#p-pagar', el).addEventListener('click', () => {
+      clearInterval(timer); trilha(true);
+      tela.innerHTML = `<div class="sucesso"><div class="bola">✓</div><b style="font-size:18px">Pagamento confirmado</b><p style="color:#c2b8aa;margin-top:8px">Seu pedido já foi para a cozinha. Obrigado!</p><button class="btn-cel sec" id="p-de-novo" style="margin-top:14px">Ver de novo</button></div>`;
+      $('#p-de-novo', el).addEventListener('click', desenha);
+    });
+  };
+  el.querySelectorAll('.aba').forEach(a => a.addEventListener('click', () => { modo = a.dataset.m; desenha(); }));
+  desenha();
+}
+
+// 4. WhatsApp: avisos de status
+function palcoWhatsapp(el) {
+  const ETAPAS = [
+    ['Pedido recebido', 'Olá, Maria! Recebemos seu pedido #0042 no Império do Churraxco 🔥\n1× Kit 1 + Pão de alho\nTotal: R$ 137,98\nAvisamos quando ficar pronto.'],
+    ['Em preparo', 'Seu pedido #0042 já está sendo preparado 🥩'],
+    ['Saiu para entrega', 'Seu pedido #0042 saiu para entrega e chega em breve 🛵'],
+    ['Entregue', 'Pedido #0042 entregue. Bom churrasco! Obrigado pela preferência 🙌'],
+  ];
+  let feito = 0;
+  el.innerHTML = `<div class="palco-rotulo"><span>Protótipo</span><i>Avance o pedido no painel</i></div>
+    <div class="dupla"><div class="celular"><div class="tela zap-tela"><div class="zap-topo"><div class="av">IC</div><div><b>Império do Churraxco</b><span>conta comercial</span></div></div><div class="zap-msgs" id="w-msgs"></div></div></div>
+    <div><div style="font-size:13px;color:#c2b8aa;margin-bottom:8px">No painel, a equipe só muda a etapa:</div><div class="status-trilha" id="w-trilha"></div>
+    <div style="background:#ffffff0d;border-radius:12px;padding:10px 12px;margin-top:12px;font-size:13px"><b style="color:#ffc107">Para você:</b> a cada pedido novo, chega um aviso no seu WhatsApp com o pedido completo.</div>
+    <div class="acoes-palco"><button class="btn-palco sec" id="w-zera">Recomeçar</button></div></div></div>`;
+  const desenha = () => {
+    $('#w-msgs', el).innerHTML = ETAPAS.slice(0, feito).map((e, i) => `<div class="msg loja">${e[1]}<time>${hora(i * 12)}</time></div>`).join('') || '<div style="color:#8fa1ab;font-size:12px;text-align:center;margin-top:30px">Clique em "Pedido recebido" ao lado →</div>';
+    $('#w-trilha', el).innerHTML = ETAPAS.map((e, i) => `<button data-i="${i}" class="${i < feito ? 'feito' : i === feito ? 'prox' : ''}" ${i !== feito ? 'disabled' : ''}>${e[0]}<span>${i < feito ? '✓ enviado' : i === feito ? 'clique' : ''}</span></button>`).join('');
+    el.querySelectorAll('#w-trilha button:not([disabled])').forEach(b => b.addEventListener('click', () => { feito++; desenha(); }));
+    const m = $('#w-msgs', el); m.scrollTop = m.scrollHeight;
+  };
+  $('#w-zera', el).addEventListener('click', () => { feito = 0; desenha(); });
+  desenha();
+}
+
+// 5. Chatbot
+function palcoChatbot(el) {
+  const MENU = 'Olá! Bem-vindo ao Império do Churraxco 🔥\nResponda com o número:\n1. Ver o cardápio\n2. Horário e endereço\n3. Fazer um pedido\n4. Onde está meu pedido\n5. Falar com um atendente';
+  const RESP = {
+    1: ['1', 'Nossos kits:\nKit 1 (3 a 4 pessoas): R$ 119,99\nKit 2 (7 a 8 pessoas): R$ 199,99\nKit 3 (10 a 12 pessoas): R$ 274,99\nVeja tudo e peça pelo link: imperiodochurraxco.com.br'],
+    2: ['2', 'Delivery das 10:30 às 23:00.\nRua José Sombra, 121, Rio de Janeiro.'],
+    3: ['3', 'É rapidinho! Escolha seu kit e veja a taxa de entrega na hora:\nimperiodochurraxco.com.br'],
+    4: ['4', 'Seu pedido #0042 está EM PREPARO 🥩\nAvisamos quando sair para entrega.'],
+    5: ['5', 'Certo! Um atendente vai te responder em instantes. 👍'],
+  };
+  el.innerHTML = `<div class="palco-rotulo"><span>Protótipo</span><i>Você é o cliente: escolha uma opção</i></div>
+    <div class="celular"><div class="tela zap-tela"><div class="zap-topo"><div class="av">IC</div><div><b>Império do Churraxco</b><span>online</span></div></div><div class="zap-msgs" id="c-msgs"></div>
+    <div class="opcoes-zap" id="c-op"></div></div></div>`;
+  const msgs = $('#c-msgs', el);
+  const add = (t, cls) => { msgs.insertAdjacentHTML('beforeend', `<div class="msg ${cls}">${t}<time>${hora()}</time></div>`); msgs.scrollTop = msgs.scrollHeight; };
+  const opcoes = () => { $('#c-op', el).innerHTML = Object.entries(RESP).map(([k]) => `<button data-o="${k}">${k}. ${['Cardápio', 'Horário', 'Pedir', 'Meu pedido', 'Atendente'][k - 1]}</button>`).join('') + '<button data-o="0">Oi</button>'; };
+  $('#c-op', el).addEventListener('click', ev => {
+    const b = ev.target.closest('[data-o]'); if (!b) return;
+    const o = b.dataset.o;
+    add(o === '0' ? 'Oi, boa noite!' : RESP[o][0], 'cli');
+    setTimeout(() => add(o === '0' ? MENU : RESP[o][1], 'loja robo'), 650);
+  });
+  add('Oi, boa noite!', 'cli'); add(MENU, 'loja robo'); opcoes();
+}
+
+// 6. Site
+function palcoSite(el) {
+  el.innerHTML = `<div class="palco-rotulo"><span>Como a loja aparece</span><i>Troque a visão</i></div>
+    <div class="abas"><button class="aba on" data-v="site">Página da loja</button><button class="aba" data-v="google">No Google</button><button class="aba" data-v="zap">Link no WhatsApp</button></div><div id="s-vista"></div>`;
+  const V = {
+    site: `<div class="navegador"><div class="nav-barra"><i></i><i></i><i></i><div class="nav-url">imperiodochurraxco.com.br</div></div>
+      <div class="site-capa"><h4>Império do Churraxco</h4><p>Qualidade, sabor e praticidade para o seu churrasco!</p><span class="cta">Pedir agora</span></div>
+      <div class="site-info"><div><b>Delivery</b>10:30 às 23:00</div><div><b>Onde estamos</b>Rua José Sombra, 121</div><div><b>Pagamento</b>Pix, cartão, dinheiro</div></div>
+      <div class="site-kits">${KITS.slice(0, 3).map(k => `<div><b>${k.n}</b>${k.p}<br><span class="num" style="color:#c96500;font-weight:700">${reaisC(k.c)}</span></div>`).join('')}</div></div>`,
+    google: `<div class="google"><div class="busca">kit churrasco irajá</div><div class="site-n">imperiodochurraxco.com.br</div>
+      <div class="tit">Império do Churraxco · Kits de churrasco com entrega no Rio</div>
+      <div class="desc">Kits para 3 a 12 pessoas com contra filé, picanha, linguiça, pão de alho e carvão. Delivery das 10:30 às 23:00. Peça pelo site e veja a taxa de entrega na hora.</div></div>`,
+    zap: `<div class="zap-previa"><div class="balao"><div class="card"><div>Império do Churraxco</div><p><b>Império do Churraxco · Kits de churrasco</b><br>Qualidade, sabor e praticidade para o seu churrasco!</p></div>Olha esse kit para sábado 🔥 imperiodochurraxco.com.br</div></div>`,
+  };
+  const ver = v => { el.querySelectorAll('.aba').forEach(a => a.classList.toggle('on', a.dataset.v === v)); $('#s-vista', el).innerHTML = V[v]; };
+  el.querySelectorAll('.aba').forEach(a => a.addEventListener('click', () => ver(a.dataset.v)));
+  ver('site');
+  el.insertAdjacentHTML('beforeend', '<p style="color:#a9a196;font-size:12.5px;margin:10px 0 0">O domínio é só um exemplo. As fotos e o logo entram quando você enviar.</p>');
+}
+
+// 7. Estoque
+function palcoEstoque(el) {
+  const INICIAL = [['Contra filé grill', 'kg', 6, 3], ['Drumet temperado', 'kg', 5.5, 3], ['Picanha suína temperada', 'kg', 4, 2], ['Linguiça toscana', 'kg', 8, 3], ['Pão de alho', 'pct', 9, 4], ['Carvão', 'un', 5, 4]];
+  const KIT1 = [0.5, 0.5, 0.5, 0.5, 1, 1];
+  let est, vendidos;
+  const zera = () => { est = INICIAL.map(x => x[2]); vendidos = 0; };
+  el.innerHTML = `<div class="palco-rotulo"><span>Protótipo</span><i>Venda kits e veja a baixa</i></div>
+    <table class="tabela-est"><tbody id="x-corpo"></tbody></table>
+    <div class="acoes-palco"><button class="btn-palco" id="x-vender">Vender 1 Kit 1</button><button class="btn-palco sec" id="x-cancelar">Cancelar o último</button><button class="btn-palco sec" id="x-zera">Recomeçar</button></div>
+    <p id="x-msg" style="color:#c2b8aa;font-size:13px;margin:10px 0 0"></p>`;
+  const fmt = (v, u) => u === 'kg' ? v.toLocaleString('pt-BR', { minimumFractionDigits: 1 }) + ' kg' : `${v} ${u}`;
+  const desenha = (mexeu) => {
+    $('#x-corpo', el).innerHTML = INICIAL.map(([n, u, ini, min], i) => {
+      const baixo = est[i] <= min;
+      return `<tr class="${mexeu ? 'mexeu' : ''}"><td>${n}${baixo ? '<div class="alerta-est">Estoque baixo</div>' : ''}</td><td class="num" style="text-align:right;white-space:nowrap">${fmt(est[i], u)}</td>
+        <td style="width:34%"><div class="barra-est"><i class="${baixo ? 'baixo' : ''}" style="width:${Math.max(0, est[i] / ini * 100)}%"></i></div></td></tr>`;
+    }).join('');
+    const acabou = est.some((v, i) => v < KIT1[i]);
+    $('#x-vender', el).disabled = acabou;
+    $('#x-msg', el).textContent = acabou ? 'Um item do Kit 1 acabou: o link para de vender este kit até você repor (se você ligar essa opção).'
+      : vendidos ? `${vendidos} Kit 1 vendido${vendidos > 1 ? 's' : ''}. Cada venda tira 500 g de cada carne, 1 pão de alho e 1 carvão.` : 'Cada Kit 1 vendido tira do estoque o que vai dentro dele.';
+  };
+  $('#x-vender', el).addEventListener('click', () => { est = est.map((v, i) => Math.round((v - KIT1[i]) * 10) / 10); vendidos++; desenha(true); });
+  $('#x-cancelar', el).addEventListener('click', () => { if (!vendidos) return; est = est.map((v, i) => Math.round((v + KIT1[i]) * 10) / 10); vendidos--; desenha(true); });
+  $('#x-zera', el).addEventListener('click', () => { zera(); desenha(); });
+  zera(); desenha();
+}
+
+// 8. Relatórios
+function palcoRelatorios(el) {
+  const DIAS = [['Seg', 4, 61996], ['Ter', 3, 45997], ['Qua', 5, 79995], ['Qui', 6, 98394], ['Sex', 11, 191989], ['Sáb', 17, 342483], ['Dom', 14, 279986]];
+  const fat = DIAS.reduce((s, d) => s + d[2], 0), ped = DIAS.reduce((s, d) => s + d[1], 0);
+  const max = Math.max(...DIAS.map(d => d[2]));
+  const W = 320, H = 150, base = 128, larg = 26, passo = W / DIAS.length;
+  const barras = DIAS.map((d, i) => {
+    const h = Math.max(4, d[2] / max * 108), x = i * passo + (passo - larg) / 2, y = base - h;
+    return `<g data-i="${i}"><rect x="${i * passo}" y="0" width="${passo}" height="${H}" fill="transparent"/>
+      <path d="M${x} ${base} V${y + 4} Q${x} ${y} ${x + 4} ${y} H${x + larg - 4} Q${x + larg} ${y} ${x + larg} ${y + 4} V${base} Z" fill="${i === 5 ? '#ffc107' : '#f57c00'}"/>
+      <text x="${i * passo + passo / 2}" y="${H - 6}" font-size="11" fill="#b5ada2" text-anchor="middle">${d[0]}</text></g>`;
+  }).join('');
+  const RANK = [['Kit 1', 21], ['Kit 2', 15], ['Kit 6', 12], ['Kit 3', 8], ['Kit 5', 4]];
+  el.innerHTML = `<div class="palco-rotulo"><span>Exemplo com números fictícios</span><i>Passe o mouse no gráfico</i></div>
+    <div class="kpis"><div><span>Faturamento na semana</span><b class="num">${reaisC(fat)}</b></div><div><span>Pedidos</span><b class="num">${ped}</b></div><div><span>Ticket médio</span><b class="num">${reaisC(Math.round(fat / ped))}</b></div></div>
+    <div class="grafico"><div style="font-size:12px;color:#b5ada2;margin:0 0 4px 2px">Vendas por dia da semana</div>
+      <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Gráfico de vendas por dia: sábado é o dia que mais vende"><line x1="0" y1="${base}" x2="${W}" y2="${base}" stroke="#ffffff22"/>${barras}</svg><div class="tip" id="r-tip"></div></div>
+    <div class="ranking">${RANK.map(([k, q]) => `<div><span>${k}</span><i style="width:${q / RANK[0][1] * 100}%"></i><span class="num" style="text-align:right">${q} vendas</span></div>`).join('')}</div>
+    <div class="recompra"><div style="background:none;padding:2px 0;color:#ffc107;font-weight:700;font-size:12.5px">Clientes para chamar de novo</div>
+      <div><span>Carla Mendes<small>4 pedidos · último há 32 dias</small></span><button>Chamar no WhatsApp</button></div>
+      <div><span>João Batista<small>3 pedidos · último há 41 dias</small></span><button>Chamar no WhatsApp</button></div>
+      <div><span>Cupom <b style="color:#ffc107">VOLTA10</b><small>10% de desconto · 7 usos de 50</small></span><span class="num" style="font-size:12px;color:#9fd3b1">ativo</span></div></div>`;
+  const svg = $('svg', el), tip = $('#r-tip', el), caixa = $('.grafico', el);
+  svg.querySelectorAll('g[data-i]').forEach(g => {
+    g.addEventListener('mouseenter', () => {
+      const d = DIAS[g.dataset.i], r = g.querySelector('path').getBoundingClientRect(), c = caixa.getBoundingClientRect();
+      tip.innerHTML = `<b>${d[0]}</b> · ${d[1]} pedidos · ${reaisC(d[2])}`;
+      tip.style.left = (r.left - c.left + r.width / 2) + 'px'; tip.style.top = (r.top - c.top) + 'px'; tip.style.opacity = 1;
+      g.querySelector('path').setAttribute('opacity', '.8');
+    });
+    g.addEventListener('mouseleave', () => { tip.style.opacity = 0; g.querySelector('path').removeAttribute('opacity'); });
+    g.addEventListener('click', () => g.dispatchEvent(new Event('mouseenter')));
+  });
+}
+</script>
+</body>
+</html>
